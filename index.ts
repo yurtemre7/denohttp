@@ -15,21 +15,16 @@ async function gvm(req: Request): Promise<Response> {
   }
 
   let cmd = [];
-  // string interpolation
-  cmd.push(`echo "${assembly}" > /tmp/assembly.s`);
   if (parameters.get("win") === "true") {
     cmd = [
       "cmd",
       "/C",
-      `echo ${assembly}`,
-      ">",
-      "test.gc",
-      "&&",
-      "EML.exe",
-      "test.gc",
+      "echo",
+      input,
+      assembly,
     ];
   } else {
-    cmd = ["echo", assembly, input];
+    cmd = ["./jpp_interpreter", input, assembly];
   }
 
   try {
