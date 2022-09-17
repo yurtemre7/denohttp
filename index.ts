@@ -16,19 +16,37 @@ async function gvm(req: Request): Promise<Response> {
   }
 
   let cmd = [];
+  let hasSucceed = false;
   cmd = ["./gvm", input, assembly];
   try {
     const p = Deno.run({ cmd, stdout: "piped" });
+
+    // set timeout
+    const timeout = 1000 * 10;
+
+    setTimeout(() => {
+      if (!hasSucceed) {
+        p.kill("SIGTERM");
+        console.log("timeout");
+        return new Response("Programm exceeded timelimit of 10 seconds");
+      }
+    }, timeout);
 
     // await its completion
     const [_, stdout] = await Promise.all([
       p.status(),
       p.output(),
     ]);
+    hasSucceed = stdout !== null;
+
+    console.log("Code:");
     console.log(stdout);
+
     const result = new TextDecoder("utf-8").decode(stdout);
-    console.log("ran successfully");
+
+    console.log("has executed successfully:", hasSucceed);
     console.log(result);
+
     return new Response(result);
   } catch (error) {
     return new Response(error);
