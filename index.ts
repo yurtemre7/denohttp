@@ -1,12 +1,14 @@
 import { serve } from "https://deno.land/std@0.154.0/http/server.ts";
 
 async function gvm(req: Request): Promise<Response> {
-  const headers = req.headers;
-  console.log(headers)
-  const assembly = headers.get("assembly") || "";
+  const body = await req.arrayBuffer();
+  const text = new TextDecoder("utf-8").decode(body);
+  console.log(text);
+
+  const assembly = "";
   console.log("trying to run:");
   console.log(assembly);
-  const input = headers.get("input") || "";
+  const input = "";
 
   if (assembly === null) {
     return new Response("assembly key is not defined");
