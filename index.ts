@@ -40,4 +40,23 @@ async function handler(req: Request): Promise<Response> {
   return new Response("Hello, World!");
 }
 
+function testTextDecoder() {
+  let text = "plain text";
+  let textWithNewLine = "plain\ntext";
+  let uint8array = new Uint8Array([]);
+  let uint8arrayWithNewLine = new Uint8Array([]);
+  // constructor
+  uint8array = new TextEncoder().encode(text);
+  uint8arrayWithNewLine = new TextEncoder().encode(textWithNewLine);
+
+  // decode
+  text = new TextDecoder().decode(uint8array);
+  textWithNewLine = new TextDecoder().decode(uint8arrayWithNewLine);
+
+  console.log(text);
+  console.log(textWithNewLine);
+}
+
+testTextDecoder();
+
 serve(handler, { port: 6060 });
