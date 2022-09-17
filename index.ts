@@ -75,7 +75,8 @@ async function testDenoRunWithDecoder() {
   }
 }
 
-testTextDecoder();
-testDenoRunWithDecoder();
+// Tests
+// testTextDecoder();
+// testDenoRunWithDecoder();
 
 serve(handler, { port: 6060 });
