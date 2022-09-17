@@ -57,6 +57,25 @@ function testTextDecoder() {
   console.log(textWithNewLine);
 }
 
+async function testDenoRunWithDecoder() {
+  let cmd = [];
+  cmd = ["cmd", "/c", "a.exe"];
+  try {
+    const p = Deno.run({ cmd, stdout: "piped" });
+
+    // await its completion
+    const [_, stdout] = await Promise.all([
+      p.status(),
+      p.output(),
+    ]);
+    const result = new TextDecoder("utf-8").decode(stdout);
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 testTextDecoder();
+testDenoRunWithDecoder();
 
 serve(handler, { port: 6060 });
