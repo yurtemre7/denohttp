@@ -22,6 +22,7 @@ async function gvm(req: Request): Promise<Response> {
     ]);
     const result = new TextDecoder("utf-8").decode(stdout);
     console.log("ran successfully");
+    console.log(result);
     return new Response(result);
   } catch (error) {
     return new Response(error);
