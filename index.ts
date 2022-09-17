@@ -43,10 +43,11 @@ async function gvm(req: Request): Promise<Response> {
 
     const result = new TextDecoder("utf-8").decode(stdout);
 
-    console.log("has executed successfully?\n", hasSucceed);
+    console.log("has executed successfully?");
+    console.log(hasSucceed);
 
     if (!hasSucceed) {
-      return new Response("Programm exceeded timelimit of 10 seconds");
+      return new Response("Programm exceeded time limit of 10 seconds");
     }
 
     console.log("Result:");
