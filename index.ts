@@ -4,6 +4,8 @@ async function gvm(req: Request): Promise<Response> {
   const headers = req.headers;
 
   const assembly = headers.get("assembly") || "";
+  console.log("trying to run:");
+  console.log(assembly);
   const input = headers.get("input") || "";
 
   if (assembly === null) {
