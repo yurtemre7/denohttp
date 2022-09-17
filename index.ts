@@ -3,8 +3,13 @@ import { serve } from "https://deno.land/std@0.154.0/http/server.ts";
 async function gvm(req: Request): Promise<Response> {
   const parameters = new URL(req.url).searchParams;
   const headers = req.headers;
-  
+
   console.log(req.body);
+  // read the stream
+  const body = await req.arrayBuffer();
+  console.log(body);
+  
+  // decode req.body  to get the data
   console.log(headers);
 
   for (const [key, value] of parameters) {
