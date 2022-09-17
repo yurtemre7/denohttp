@@ -28,7 +28,6 @@ async function gvm(req: Request): Promise<Response> {
       if (!hasSucceed) {
         p.kill("SIGTERM");
         console.log("timeout");
-        return new Response("Programm exceeded timelimit of 10 seconds");
       }
     }, timeout);
 
@@ -44,7 +43,13 @@ async function gvm(req: Request): Promise<Response> {
 
     const result = new TextDecoder("utf-8").decode(stdout);
 
-    console.log("has executed successfully:", hasSucceed);
+    console.log("has executed successfully?\n", hasSucceed);
+
+    if (!hasSucceed) {
+      return new Response("Programm exceeded timelimit of 10 seconds");
+    }
+
+    console.log("Result:");
     console.log(result);
 
     return new Response(result);
