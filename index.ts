@@ -2,7 +2,7 @@ import { serve } from "https://deno.land/std@0.154.0/http/server.ts";
 
 async function gvm(req: Request): Promise<Response> {
   const headers = req.headers;
-
+  console.log(headers)
   const assembly = headers.get("assembly") || "";
   console.log("trying to run:");
   console.log(assembly);
