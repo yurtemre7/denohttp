@@ -3,12 +3,13 @@ import { serve } from "https://deno.land/std@0.154.0/http/server.ts";
 async function gvm(req: Request): Promise<Response> {
   const body = await req.arrayBuffer();
   const text = new TextDecoder("utf-8").decode(body);
-  console.log(text);
+  // convert text to JSON
+  const json = JSON.parse(text);
 
-  const assembly = "";
+  const assembly = json.assembly || "";
+  const input = json.input || "";
   console.log("trying to run:");
   console.log(assembly);
-  const input = "";
 
   if (assembly === null) {
     return new Response("assembly key is not defined");
