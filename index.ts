@@ -20,7 +20,7 @@ async function gvm(req: Request): Promise<Response> {
       p.status(),
       p.output(),
     ]);
-    const result = new TextDecoder().decode(stdout);
+    const result = new TextDecoder("utf-8").decode(stdout);
     console.log("ran successfully");
     return new Response(result);
   } catch (error) {
@@ -50,8 +50,8 @@ function testTextDecoder() {
   uint8arrayWithNewLine = new TextEncoder().encode(textWithNewLine);
 
   // decode
-  text = new TextDecoder().decode(uint8array);
-  textWithNewLine = new TextDecoder().decode(uint8arrayWithNewLine);
+  text = new TextDecoder("utf-8").decode(uint8array);
+  textWithNewLine = new TextDecoder("utf-8").decode(uint8arrayWithNewLine);
 
   console.log(text);
   console.log(textWithNewLine);
