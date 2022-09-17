@@ -22,7 +22,7 @@ async function gvm(req: Request): Promise<Response> {
     const p = Deno.run({ cmd, stdout: "piped" });
 
     // set timeout
-    const timeout = 1000 * 10;
+    const timeout = 1000 * 5;
 
     setTimeout(() => {
       if (!hasSucceed) {
