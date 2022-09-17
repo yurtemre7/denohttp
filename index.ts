@@ -37,7 +37,7 @@ async function gvm(req: Request): Promise<Response> {
       p.status(),
       p.output(),
     ]);
-    hasSucceed = stdout !== null;
+    hasSucceed = stdout.length > 0;
 
     console.log("Code:");
     console.log(stdout);
