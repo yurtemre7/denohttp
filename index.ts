@@ -4,11 +4,13 @@ async function gvm(req: Request): Promise<Response> {
   const parameters = new URL(req.url).searchParams;
   const headers = req.headers;
 
-  console.log(req.body);
-  // read the stream
-  const body = await req.arrayBuffer();
-  console.log(body);
-  
+  const body = req.body;
+  const reader = body?.getReader();
+  reader?.read().then((result) => {
+    console.log(result);
+  });
+
+
   // decode req.body  to get the data
   console.log(headers);
 
