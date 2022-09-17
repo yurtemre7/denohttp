@@ -55,7 +55,7 @@ async function handler(req: Request): Promise<Response> {
 
   const url = new URL(req.url);
 
-  if (url.pathname === "/gvm" && req.method == "GET") {
+  if (url.pathname === "/gvm" && req.method == "POST") {
     return await gvm(req);
   }
 
