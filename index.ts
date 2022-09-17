@@ -25,6 +25,7 @@ async function gvm(req: Request): Promise<Response> {
       p.status(),
       p.output(),
     ]);
+    console.log(stdout);
     const result = new TextDecoder("utf-8").decode(stdout);
     console.log("ran successfully");
     console.log(result);
