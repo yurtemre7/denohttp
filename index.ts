@@ -47,7 +47,7 @@ async function gvm(req: Request): Promise<Response> {
     console.log(hasSucceed);
 
     if (!hasSucceed) {
-      return new Response("Programm exceeded time limit of 10 seconds");
+      return new Response(`Programm exceeded time limit of ${timeout / 1000} seconds`);
     }
 
     console.log("Result:");
