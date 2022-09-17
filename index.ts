@@ -1,14 +1,7 @@
 import { serve } from "https://deno.land/std@0.154.0/http/server.ts";
 
 async function gvm(req: Request): Promise<Response> {
-  const parameters = new URL(req.url).searchParams;
   const headers = req.headers;
-  // decode req.body  to get the data
-  console.log(headers);
-
-  for (const [key, value] of parameters) {
-    console.log(`${key}: ${value}`);
-  }
 
   const assembly = headers.get("assembly") || "";
   const input = headers.get("input") || "";
@@ -18,18 +11,7 @@ async function gvm(req: Request): Promise<Response> {
   }
 
   let cmd = [];
-  if (parameters.get("win") === "true") {
-    cmd = [
-      "cmd",
-      "/C",
-      "echo",
-      input,
-      assembly,
-    ];
-  } else {
-    cmd = ["./jpp_interpreter", input, assembly];
-  }
-
+  cmd = ["./jpp_interpreter", input, assembly];
   try {
     const p = Deno.run({ cmd, stdout: "piped" });
 
@@ -39,6 +21,7 @@ async function gvm(req: Request): Promise<Response> {
       p.output(),
     ]);
     const result = new TextDecoder().decode(stdout);
+    console.log("ran successfully");
     return new Response(result);
   } catch (error) {
     return new Response(error);
