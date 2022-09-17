@@ -2,6 +2,14 @@ import { serve } from "https://deno.land/std@0.154.0/http/server.ts";
 
 async function gvm(req: Request): Promise<Response> {
   const parameters = new URL(req.url).searchParams;
+  // body
+  const body = await req.json();
+  // headers
+  const headers = req.headers;
+  
+  // log body and headers
+  console.log(body);
+  console.log(headers);
 
   for (const [key, value] of parameters) {
     console.log(`${key}: ${value}`);
