@@ -16,7 +16,7 @@ async function gvm(req: Request): Promise<Response> {
   }
 
   let cmd = [];
-  cmd = ["./jpp_interpreter", input, assembly];
+  cmd = ["./gvm", input, assembly];
   try {
     const p = Deno.run({ cmd, stdout: "piped" });
 
