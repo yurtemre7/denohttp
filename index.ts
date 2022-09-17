@@ -3,14 +3,6 @@ import { serve } from "https://deno.land/std@0.154.0/http/server.ts";
 async function gvm(req: Request): Promise<Response> {
   const parameters = new URL(req.url).searchParams;
   const headers = req.headers;
-
-  const body = req.body;
-  const reader = body?.getReader();
-  reader?.read().then((result) => {
-    console.log(result);
-  });
-
-
   // decode req.body  to get the data
   console.log(headers);
 
@@ -18,8 +10,8 @@ async function gvm(req: Request): Promise<Response> {
     console.log(`${key}: ${value}`);
   }
 
-  const assembly = parameters.get("assembly") || "";
-  const input = parameters.get("input") || "";
+  const assembly = headers.get("assembly") || "";
+  const input = headers.get("input") || "";
 
   if (assembly === null) {
     return new Response("assembly key is not defined");
