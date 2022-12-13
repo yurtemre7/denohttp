@@ -1,47 +1,4 @@
 import { serve } from "https://deno.land/std@0.154.0/http/server.ts";
-import { ChatGPTAPI } from "npm:chatgpt";
-
-async function gpt(req: Request): Promise<Response> {
-  const body = await req.arrayBuffer();
-  const text = new TextDecoder("utf-8").decode(body);
-
-  // convert text to JSON
-  // console.log(text);
-  let json;
-  try {
-    json = JSON.parse(text);
-  } catch (_) {
-    return new Response("No body found", { status: 400 });
-  }
-
-  const prompt = json.prompt || "";
-  const sessionToken = json.session_token || "";
-
-  if (sessionToken === "") {
-    return new Response("No session token found", { status: 400 });
-  }
-
-  if (prompt === null) {
-    return new Response("prompt key is not defined", { status: 400 });
-  }
-
-  const api = new ChatGPTAPI({
-    sessionToken: sessionToken,
-    markdown: false,
-  });
-
-  // ensure the API is properly authenticated (optional)
-  await api.ensureAuth();
-
-  // send a message and wait for the response
-  const response = await api.sendMessage(
-    prompt,
-  );
-
-  // response is a markdown-formatted string
-  // console.log(response);
-  return new Response(response);
-}
 
 async function gvm(req: Request): Promise<Response> {
   const body = await req.arrayBuffer();
@@ -111,8 +68,6 @@ async function handler(req: Request): Promise<Response> {
 
   if (url.pathname === "/gvm" && req.method == "POST") {
     return await gvm(req);
-  } else if (url.pathname === "/gpt" && req.method == "POST") {
-    return await gpt(req);
   }
 
   return new Response("Hello, World!");
